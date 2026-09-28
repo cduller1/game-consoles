@@ -2,7 +2,18 @@ public class GameConsole
 {
     public string Name { get; set; }
     public string Note { get; set; }
-    public int Number { get; set; }
+
+    private int _number = 0;
+    public int Number
+    {
+        get => _number;
+        set
+        {
+            if (value < 0)
+                throw new ArgumentOutOfRangeException(nameof(value), "Number cannot be negative.");
+            _number = value;
+        }
+    }
 
     public GameConsole(string name)
     {
