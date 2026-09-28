@@ -1,6 +1,6 @@
 public class GameConsole
 {
-    public string Name { get; set; }
+    public string Name { get; private set; }
     public string Note { get; set; }
 
     private int _number = 0;
