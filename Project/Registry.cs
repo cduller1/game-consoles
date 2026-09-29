@@ -15,6 +15,6 @@ public class Registry
 
     public List<GameConsole> All()
     {
-        return _items;
+        return new List<GameConsole>(_items);
     }
 }
