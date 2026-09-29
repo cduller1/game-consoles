@@ -1,3 +1,5 @@
+using System;
+
 public class GameConsole
 {
     public string Name { get; private set; }
@@ -10,7 +12,7 @@ public class GameConsole
         set
         {
             if (value < 0)
-                throw new ArgumentOutOfRangeException(nameof(value), "Number cannot be negative.");
+                throw new ArgumentOutOfRangeException(nameof(value));
             _number = value;
         }
     }
@@ -20,5 +22,12 @@ public class GameConsole
         Name = name;
         Note = "";
         Number = 0;
+    }
+
+    public void Rename(string newName)
+    {
+        if (string.IsNullOrWhiteSpace(newName))
+            throw new ArgumentException(nameof(newName));
+        Name = newName;
     }
 }
