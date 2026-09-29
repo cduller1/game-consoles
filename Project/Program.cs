@@ -9,19 +9,19 @@ Console.WriteLine($"{registry.Count} on file.");
 Console.WriteLine();
 
 // One I know something about.
-var known = registry.Find("PlayStation 5");
+GameConsole? known = registry.Find("PlayStation 5");
 if (known == null)
 {
     Console.WriteLine("Nothing on file by that name.");
 }
 else
 {
-    known.Rename("PS5");
-    Console.WriteLine($"{known.Name} was renamed.");
+    known.Visit();
+    Console.WriteLine($"{known.Name} - visited {known.TimesVisited}x");
 }
 
 // And one nobody has ever heard of.
-var missing = registry.Find("something I never added");
+GameConsole? missing = registry.Find("something I never added");
 Console.WriteLine(missing == null
     ? "Nothing on file by that name."
     : "...found something that shouldn't be there.");
@@ -35,7 +35,7 @@ if (!string.IsNullOrWhiteSpace(name))
 }
 
 Console.WriteLine();
-foreach (var item in registry.All())
+foreach (GameConsole item in registry.All())
 {
     Console.WriteLine(item.Name);
 }
