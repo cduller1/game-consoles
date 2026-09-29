@@ -1,3 +1,7 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
 public class Registry
 {
     private readonly List<GameConsole> _items = new List<GameConsole>();
@@ -16,5 +20,10 @@ public class Registry
     public List<GameConsole> All()
     {
         return new List<GameConsole>(_items);
+    }
+
+    public GameConsole? Find(string name)
+    {
+        return _items.FirstOrDefault(i => i.Name == name);
     }
 }
