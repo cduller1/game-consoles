@@ -26,4 +26,14 @@ public class Registry
     {
         return _items.FirstOrDefault(i => i.Name == name);
     }
+
+    public bool Remove(string name)
+    {
+        var item = Find(name);
+        if (item == null)
+            return false;
+
+        _items.Remove(item);
+        return true;
+    }
 }
