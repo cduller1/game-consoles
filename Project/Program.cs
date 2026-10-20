@@ -36,10 +36,7 @@ if (!string.IsNullOrWhiteSpace(name))
 
 Console.WriteLine();
 
-// Week 6 final listing: Registry + all records
 foreach (IListed thing in registry.Everything())
 {
     Console.WriteLine($"{thing.Kind,-12}{thing.Line()}");
 }
-
-Console.WriteLine($"{registry.Count} on file.");
