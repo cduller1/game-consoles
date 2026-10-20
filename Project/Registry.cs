@@ -12,6 +12,9 @@ public class Registry : IListed
 
     public void Add(GameConsole item)
     {
+        if (Find(item.Name) != null)
+            return;
+
         _items.Add(item);
     }
 
@@ -45,13 +48,10 @@ public class Registry : IListed
     public List<IListed> Everything()
     {
         var list = new List<IListed>();
-
         list.Add(this);
 
-        foreach (var record in _items)
-        {
-            list.Add(record);
-        }
+        foreach (var item in _items)
+            list.Add(item);
 
         return list;
     }

@@ -4,6 +4,12 @@ registry.Add(registry.NewItem("Xbox One"));
 registry.Add(registry.NewItem("PlayStation 5"));
 registry.Add(registry.NewItem("Nintendo Switch"));
 
+// Week 7's rule, visible: Add called twice with the same name, and the
+// second one refused. The count is the only thing that tells you.
+registry.Add(registry.NewItem("the second one"));
+registry.Add(registry.NewItem("the second one"));
+Console.WriteLine($"Tried to register \"the second one\" twice - {registry.Count} on file.");
+
 Console.WriteLine(Registry.Topic);
 Console.WriteLine($"{registry.Count} on file.");
 Console.WriteLine();
@@ -35,8 +41,8 @@ if (!string.IsNullOrWhiteSpace(name))
 }
 
 Console.WriteLine();
-
-foreach (IListed thing in registry.Everything())
+foreach (GameConsole item in registry.All())
 {
-    Console.WriteLine($"{thing.Kind,-12}{thing.Line()}");
+    Console.WriteLine(item.Name);
 }
+Console.WriteLine($"{registry.Count} on file.");
