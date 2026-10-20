@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-public class Registry
+public class Registry : IListed
 {
     private readonly List<GameConsole> _items = new List<GameConsole>();
 
@@ -35,5 +35,24 @@ public class Registry
 
         _items.Remove(item);
         return true;
+    }
+
+    public string Kind => "REGISTRY";
+
+    public string Line() =>
+        $"{Topic} - {Count} on file";
+
+    public List<IListed> Everything()
+    {
+        var list = new List<IListed>();
+
+        list.Add(this);
+
+        foreach (var record in _items)
+        {
+            list.Add(record);
+        }
+
+        return list;
     }
 }

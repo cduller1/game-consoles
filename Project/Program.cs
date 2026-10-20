@@ -35,8 +35,8 @@ if (!string.IsNullOrWhiteSpace(name))
 }
 
 Console.WriteLine();
-foreach (GameConsole item in registry.All())
+
+foreach (IListed thing in registry.Everything())
 {
-    Console.WriteLine(item.Name);
+    Console.WriteLine($"{thing.Kind,-12}{thing.Line()}");
 }
-Console.WriteLine($"{registry.Count} on file.");
