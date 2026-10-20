@@ -1,8 +1,12 @@
 using System;
+using System.Text.Json.Serialization;
 
 public class GameConsole : IListed
 {
+    [JsonInclude]
     public string Name { get; private set; }
+
+    [JsonInclude]
     public int TimesVisited { get; private set; }
 
     public GameConsole(string name)
@@ -28,3 +32,5 @@ public class GameConsole : IListed
     public string Line() =>
         $"{Name} - visited {TimesVisited}x";
 }
+
+
