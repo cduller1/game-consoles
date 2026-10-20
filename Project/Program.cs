@@ -35,8 +35,11 @@ if (!string.IsNullOrWhiteSpace(name))
 }
 
 Console.WriteLine();
+
+// Week 6 Task 2 scratch listing
 foreach (GameConsole item in registry.All())
 {
-    Console.WriteLine(item.Name);
+    Console.WriteLine($"{item.Kind,-12}{item.Line()}");
 }
+
 Console.WriteLine($"{registry.Count} on file.");

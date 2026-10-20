@@ -1,6 +1,6 @@
 using System;
 
-public class GameConsole
+public class GameConsole : IListed
 {
     public string Name { get; private set; }
     public int TimesVisited { get; private set; }
@@ -22,4 +22,10 @@ public class GameConsole
             throw new ArgumentException(nameof(newName));
         Name = newName;
     }
+
+    // Week 6 additions
+    public string Kind => "GAMECONSOLE";
+
+    public string Line() =>
+        $"{Name} - visited {TimesVisited}x";
 }
