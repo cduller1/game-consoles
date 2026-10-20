@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
+using System.IO;
 
 public class Registry : IListed
 {
@@ -54,5 +56,29 @@ public class Registry : IListed
             list.Add(item);
 
         return list;
+    }
+
+    public void Save(string path)
+    {
+        var options = new JsonSerializerOptions { WriteIndented = true };
+        string text = JsonSerializer.Serialize(_items, options);
+        File.WriteAllText(path, text);
+    }
+
+    public void Load(string path)
+    {
+        if (!File.Exists(path))
+            return;
+
+        string text = File.ReadAllText(path);
+        var loaded = JsonSerializer.Deserialize<List<GameConsole>>(text);
+
+        if (loaded == null)
+            return;
+
+        _items.Clear();
+
+        foreach (var item in loaded)
+            _items.Add(item);
     }
 }
