@@ -29,17 +29,23 @@ public class RegistryTests
     [Fact]
     public void Check4_RemovingAStrangerSaysNo()
     {
-        // set the scene: a registry with one record
         var registry = new Registry();
         registry.Add(registry.NewItem("Known"));
 
-        // do the thing: remove a name that is NOT on file
         bool result = registry.Remove("Stranger");
 
-        // check: Remove says false
         Assert.False(result);
+        Assert.Equal(1, registry.Count);
+    }
 
-        // check: Count stays the same
+    [Fact]
+    public void Check5_TheSameNameCannotRegisterTwice()
+    {
+        var registry = new Registry();
+
+        registry.Add(registry.NewItem("Repeat"));
+        registry.Add(registry.NewItem("Repeat"));
+
         Assert.Equal(1, registry.Count);
     }
 }
