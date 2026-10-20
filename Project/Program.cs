@@ -43,3 +43,5 @@ foreach (GameConsole item in registry.All())
 }
 
 Console.WriteLine($"{registry.Count} on file.");
+
+Console.WriteLine($"{registry.Kind,-12}{registry.Line()}");

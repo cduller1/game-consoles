@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-public class Registry
+public class Registry : IListed
 {
     private readonly List<GameConsole> _items = new List<GameConsole>();
 
@@ -36,4 +36,10 @@ public class Registry
         _items.Remove(item);
         return true;
     }
+
+    // Week 6 Task 4 additions
+    public string Kind => "REGISTRY";
+
+    public string Line() =>
+        $"{Topic} - {Count} on file";
 }
