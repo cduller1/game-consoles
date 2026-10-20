@@ -64,4 +64,21 @@ public class Registry : IListed
         string text = JsonSerializer.Serialize(_items, options);
         File.WriteAllText(path, text);
     }
+
+    public void Load(string path)
+    {
+        if (!File.Exists(path))
+            return;
+
+        string text = File.ReadAllText(path);
+        var loaded = JsonSerializer.Deserialize<List<GameConsole>>(text);
+
+        if (loaded == null)
+            return;
+
+        _items.Clear();
+
+        foreach (var item in loaded)
+            _items.Add(item);
+    }
 }

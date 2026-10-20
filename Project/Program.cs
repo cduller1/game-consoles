@@ -6,6 +6,8 @@ registry.Add(registry.NewItem("Xbox One"));
 registry.Add(registry.NewItem("PlayStation 5"));
 registry.Add(registry.NewItem("Nintendo Switch"));
 
+registry.Load(registryFile);
+
 Console.WriteLine(Registry.Topic);
 Console.WriteLine($"{registry.Count} on file.");
 Console.WriteLine();
