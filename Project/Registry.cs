@@ -37,9 +37,22 @@ public class Registry : IListed
         return true;
     }
 
-    // Week 6 Task 4 additions
     public string Kind => "REGISTRY";
 
     public string Line() =>
         $"{Topic} - {Count} on file";
+
+    public List<IListed> Everything()
+    {
+        var list = new List<IListed>();
+
+        list.Add(this);
+
+        foreach (var record in _items)
+        {
+            list.Add(record);
+        }
+
+        return list;
+    }
 }

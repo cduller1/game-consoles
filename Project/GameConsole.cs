@@ -23,7 +23,6 @@ public class GameConsole : IListed
         Name = newName;
     }
 
-    // Week 6 additions
     public string Kind => "GAMECONSOLE";
 
     public string Line() =>
