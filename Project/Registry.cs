@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
+using System.IO;
 
 public class Registry : IListed
 {
@@ -54,5 +56,12 @@ public class Registry : IListed
             list.Add(item);
 
         return list;
+    }
+
+    public void Save(string path)
+    {
+        var options = new JsonSerializerOptions { WriteIndented = true };
+        string text = JsonSerializer.Serialize(_items, options);
+        File.WriteAllText(path, text);
     }
 }
