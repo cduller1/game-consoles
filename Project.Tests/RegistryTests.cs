@@ -16,19 +16,30 @@ public class RegistryTests
     [Fact]
     public void Check3_FindHandsBackTheRecordItHolds()
     {
-        // set the scene: a fresh registry
         var registry = new Registry();
 
-        // keep a reference to the actual record
         var depot = registry.NewItem("Depot");
-
-        // add it
         registry.Add(depot);
 
-        // do the thing: find it
         var found = registry.Find("Depot");
 
-        // check: SAME object, not a lookalike
         Assert.Same(depot, found);
+    }
+
+    [Fact]
+    public void Check4_RemovingAStrangerSaysNo()
+    {
+        // set the scene: a registry with one record
+        var registry = new Registry();
+        registry.Add(registry.NewItem("Known"));
+
+        // do the thing: remove a name that is NOT on file
+        bool result = registry.Remove("Stranger");
+
+        // check: Remove says false
+        Assert.False(result);
+
+        // check: Count stays the same
+        Assert.Equal(1, registry.Count);
     }
 }
