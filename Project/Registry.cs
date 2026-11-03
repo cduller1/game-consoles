@@ -79,4 +79,11 @@ public class Registry : IListed
         _items.Clear();
         _items.AddRange(loaded);
     }
+
+    public List<GameConsole> Matching(string term)
+    {
+        return _items
+            .Where(i => i.Name.Contains(term, StringComparison.OrdinalIgnoreCase))
+            .ToList();
+    }
 }
