@@ -77,8 +77,6 @@ public class Registry : IListed
             return;
 
         _items.Clear();
-
-        foreach (var item in loaded)
-            _items.Add(item);
+        _items.AddRange(loaded);
     }
 }
