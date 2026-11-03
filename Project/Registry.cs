@@ -77,8 +77,27 @@ public class Registry : IListed
             return;
 
         _items.Clear();
+        _items.AddRange(loaded);
+    }
 
-        foreach (var item in loaded)
-            _items.Add(item);
+    public List<GameConsole> Matching(string term)
+    {
+        return _items
+            .Where(i => i.Name.Contains(term, StringComparison.OrdinalIgnoreCase))
+            .ToList();
+    }
+
+    public List<string> Names()
+    {
+        return _items
+            .Select(i => i.Name)
+            .ToList();
+    }
+
+    public List<GameConsole> Sorted()
+    {
+        return _items
+            .OrderBy(i => i.Name)
+            .ToList();
     }
 }

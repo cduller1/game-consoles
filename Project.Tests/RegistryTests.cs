@@ -82,4 +82,15 @@ public class RegistryTests
         Assert.Equal(1, reopened.Count);
         Assert.Equal(1, reopened.All()[0].TimesVisited);
     }
+
+    [Fact]
+    public void Week9_FindComesBackEmptyHanded()
+    {
+        var registry = new Registry();
+        var item = registry.NewItem("TestConsole");
+        registry.Add(item);
+
+        Assert.Same(item, registry.Find("TestConsole"));
+        Assert.Null(registry.Find("NoSuchName"));
+    }
 }
