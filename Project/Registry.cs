@@ -93,4 +93,11 @@ public class Registry : IListed
             .Select(i => i.Name)
             .ToList();
     }
+
+    public List<GameConsole> Sorted()
+    {
+        return _items
+            .OrderBy(i => i.Name)
+            .ToList();
+    }
 }
