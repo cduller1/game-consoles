@@ -86,4 +86,11 @@ public class Registry : IListed
             .Where(i => i.Name.Contains(term, StringComparison.OrdinalIgnoreCase))
             .ToList();
     }
+
+    public List<string> Names()
+    {
+        return _items
+            .Select(i => i.Name)
+            .ToList();
+    }
 }
