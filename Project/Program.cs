@@ -1,12 +1,12 @@
 ﻿var registry = new Registry();
 
-string registryFile = "registry.json";
+ProjectContext db = new ProjectContext();
 
 registry.Add(registry.NewItem("Xbox One"));
 registry.Add(registry.NewItem("PlayStation 5"));
 registry.Add(registry.NewItem("Nintendo Switch"));
 
-registry.Load(registryFile);
+registry.Load(db);
 
 Console.WriteLine(Registry.Topic);
 Console.WriteLine($"{registry.Count} on file.");
@@ -31,23 +31,30 @@ Console.WriteLine(missing == null
 Console.WriteLine();
 Console.Write("Take one off the books (Enter to skip): ");
 string? name = Console.ReadLine();
+
 if (!string.IsNullOrWhiteSpace(name))
 {
-    Console.WriteLine(registry.Remove(name) ? "Removed." : "Nothing by that name.");
+    Console.WriteLine(registry.Remove(name)
+        ? "Removed."
+        : "Nothing by that name.");
 }
 
 Console.WriteLine();
+
 foreach (GameConsole item in registry.All())
 {
     Console.WriteLine(item.Name);
 }
+
 Console.WriteLine($"{registry.Count} on file.");
 
-registry.Save(registryFile);
-Console.WriteLine($"{registry.Count} on file, saved to {registryFile}.");
+registry.Save(db);
+
+Console.WriteLine($"{registry.Count} on file, saved to the database.");
 
 Console.WriteLine();
 Console.Write("Search (a word, or Enter to skip): ");
+
 string? term = Console.ReadLine();
 
 if (!string.IsNullOrWhiteSpace(term))
@@ -64,6 +71,7 @@ Console.WriteLine($"On the books, as they arrived: {string.Join(", ", registry.N
 
 Console.WriteLine();
 Console.WriteLine("In order:");
+
 foreach (var record in registry.Sorted())
 {
     Console.WriteLine($"  {record.Name}");
