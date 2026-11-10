@@ -133,4 +133,37 @@ public class RegistryTests
         Assert.Equal(1, reopened.Count);
         Assert.Equal(1, reopened.Find("Xbox")!.TimesVisited);
     }
+
+    [Fact]
+    public void Week11_ARemovedRecordStaysGone()
+    {
+        DbContextOptions<ProjectContext> options = new DbContextOptionsBuilder<ProjectContext>()
+            .UseInMemoryDatabase(Guid.NewGuid().ToString())
+            .Options;
+
+        Registry registry = new Registry();
+
+        GameConsole kept = registry.NewItem("Xbox");
+        GameConsole removed = registry.NewItem("PlayStation");
+
+        registry.Add(kept);
+        registry.Add(removed);
+
+        registry.Save(new ProjectContext(options));
+
+        ProjectContext db = new ProjectContext(options);
+
+        Registry nextRun = new Registry();
+        nextRun.Load(db);
+
+        nextRun.Remove("PlayStation");
+
+        nextRun.Save(db);
+
+        Registry reopened = new Registry();
+        reopened.Load(new ProjectContext(options));
+
+        Assert.Equal(1, reopened.Count);
+        Assert.Null(reopened.Find("PlayStation"));
+    }
 }
