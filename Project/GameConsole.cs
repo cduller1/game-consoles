@@ -1,15 +1,11 @@
 using System;
-using System.ComponentModel.DataAnnotations;
-using System.Text.Json.Serialization;
 
 public class GameConsole : IListed
 {
     public int Id { get; set; }
 
-    [JsonInclude]
     public string Name { get; private set; }
 
-    [JsonInclude]
     public int TimesVisited { get; private set; }
 
     public GameConsole(string name)

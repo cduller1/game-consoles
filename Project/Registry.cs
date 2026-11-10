@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.Json;
-using System.IO;
 
 public class Registry : IListed
 {
@@ -35,6 +33,7 @@ public class Registry : IListed
     public bool Remove(string name)
     {
         var item = Find(name);
+
         if (item == null)
             return false;
 
@@ -58,28 +57,6 @@ public class Registry : IListed
         return list;
     }
 
-    public void Save(string path)
-    {
-        var options = new JsonSerializerOptions { WriteIndented = true };
-        string text = JsonSerializer.Serialize(_items, options);
-        File.WriteAllText(path, text);
-    }
-
-    public void Load(string path)
-    {
-        if (!File.Exists(path))
-            return;
-
-        string text = File.ReadAllText(path);
-        var loaded = JsonSerializer.Deserialize<List<GameConsole>>(text);
-
-        if (loaded == null)
-            return;
-
-        _items.Clear();
-        _items.AddRange(loaded);
-    }
-
     public List<GameConsole> Matching(string term)
     {
         return _items
@@ -99,5 +76,31 @@ public class Registry : IListed
         return _items
             .OrderBy(i => i.Name)
             .ToList();
+    }
+
+    public void Save(ProjectContext db)
+    {
+        foreach (GameConsole item in _items)
+        {
+            db.GameConsoles.Add(item);
+        }
+
+        db.SaveChanges();
+    }
+
+    public void Load(ProjectContext db)
+    {
+        List<GameConsole> loaded = db.GameConsoles
+            .OrderBy(item => item.Id)
+            .ToList();
+
+        if (loaded.Count == 0)
+        {
+            return;
+        }
+
+        _items.Clear();
+
+        _items.AddRange(loaded);
     }
 }
