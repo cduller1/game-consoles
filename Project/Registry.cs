@@ -82,7 +82,14 @@ public class Registry : IListed
     {
         foreach (GameConsole item in _items)
         {
-            db.GameConsoles.Add(item);
+            if (item.Id == 0)
+            {
+                db.GameConsoles.Add(item);
+            }
+            else
+            {
+                db.GameConsoles.Update(item);
+            }
         }
 
         db.SaveChanges();

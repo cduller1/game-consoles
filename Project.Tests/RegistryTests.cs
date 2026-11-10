@@ -105,4 +105,32 @@ public class RegistryTests
         Assert.Same(item, registry.Find("TestConsole"));
         Assert.Null(registry.Find("NoSuchName"));
     }
+
+    [Fact]
+    public void Week10_ASecondSaveChangesTheRow()
+    {
+        DbContextOptions<ProjectContext> options = new DbContextOptionsBuilder<ProjectContext>()
+            .UseInMemoryDatabase(Guid.NewGuid().ToString())
+            .Options;
+
+        Registry registry = new Registry();
+        registry.Add(registry.NewItem("Xbox"));
+        registry.Save(new ProjectContext(options));
+
+        ProjectContext db = new ProjectContext(options);
+
+        Registry nextRun = new Registry();
+        nextRun.Load(db);
+
+        GameConsole item = nextRun.Find("Xbox")!;
+        item.Visit();
+
+        nextRun.Save(db);
+
+        Registry reopened = new Registry();
+        reopened.Load(new ProjectContext(options));
+
+        Assert.Equal(1, reopened.Count);
+        Assert.Equal(1, reopened.Find("Xbox")!.TimesVisited);
+    }
 }
