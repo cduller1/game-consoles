@@ -1,8 +1,11 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
 public class GameConsole : IListed
 {
+    public int Id { get; set; }
+
     [JsonInclude]
     public string Name { get; private set; }
 
@@ -24,6 +27,7 @@ public class GameConsole : IListed
     {
         if (string.IsNullOrWhiteSpace(newName))
             throw new ArgumentException(nameof(newName));
+
         Name = newName;
     }
 
@@ -32,5 +36,3 @@ public class GameConsole : IListed
     public string Line() =>
         $"{Name} - visited {TimesVisited}x";
 }
-
-
