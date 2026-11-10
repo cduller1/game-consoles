@@ -92,6 +92,14 @@ public class Registry : IListed
             }
         }
 
+        foreach (GameConsole row in db.GameConsoles.ToList())
+        {
+            if (!_items.Any(item => item.Id == row.Id))
+            {
+                db.GameConsoles.Remove(row);
+            }
+        }
+
         db.SaveChanges();
     }
 
